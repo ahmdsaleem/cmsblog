@@ -14,12 +14,10 @@
                     Category Name
                 </th>
                 <th>
-                    Editing
+                    Operations
                 </th>
 
-                <th>
-                    Deleting
-                </th>
+
                 </thead>
 
                 <tbody>
@@ -30,8 +28,6 @@
                         </td>
                         <td>
                            <a href="{{ route('category.edit', ['id' => $category->id ]) }}"><i class="fas fa-edit"></i> </a>
-                        </td>
-                        <td>
                             <a href="{{ route('category.delete', ['id' => $category->id ]) }}"> <i class="fas fa-trash-alt text-danger"></i></a>
                         </td>
 
