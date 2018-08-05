@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Category;
+use App\Post;
 use Illuminate\Http\Request;
 
 class PostsController extends Controller
@@ -10,7 +11,8 @@ class PostsController extends Controller
 
     public function index()
     {
-        //
+        $posts= Post::all();
+        return view('admin.posts.index')->with('posts',$posts);
     }
 
 
@@ -29,9 +31,18 @@ class PostsController extends Controller
             'content' => 'required',
             'category_id'=> 'required'
         ]);
+        $featured= $request->featured;
+        $path = $request->file('featured')->store('public/uploads/posts');
+        $featured_new_name=substr($path,6);
+        $post=Post::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'featured' => $featured_new_name,
+            'category_id' => $request->category_id,
+            'slug' => str_slug($request->title)
+        ]);
 
-
-     dd($request->all());
+        return redirect()->route('home');
     }
 
 
