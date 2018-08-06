@@ -11,10 +11,7 @@
                 <thead>
 
                 <th>
-                    Image
-                </th>
-                <th>
-                    Title
+                    Tag Name
                 </th>
                 <th>
                     Operations
@@ -25,28 +22,24 @@
 
                 <tbody>
 
-                @if($posts->count() > 0)
+                @if($tags->count() > 0)
 
-                @foreach($posts as $post)
+                @foreach($tags as $tag)
                     <tr>
                         <td>
-                            <img src="/storage/{{ $post->featured }}" alt="{{ $post->title }}" width="50px" height="50px">
+                            {{ $tag->tag }}
                         </td>
                         <td>
-                            {{ $post->title }}
-                        </td>
-                        <td>
-                            <a href="{{ route('post.edit', ['id' => $post->id ]) }}"><i class="fas fa-edit"></i> </a>
-                            <a href="{{ route('post.delete', ['id' => $post->id ]) }}"> <i class="fas fa-trash-alt text-danger"></i></a>
+                           <a href="{{ route('tag.edit', ['id' => $tag->id ]) }}"><i class="fas fa-edit"></i> </a>
+                            <a href="{{ route('tag.delete', ['id' => $tag->id ]) }}"> <i class="fas fa-trash-alt text-danger"></i></a>
                         </td>
 
                     </tr>
                 @endforeach
 
                     @else
-
                     <tr>
-                        <th colspan="5" class="text-center"> No Posts are added</th>
+                        <th colspan="5" class="text-center"> No Tags added</th>
                     </tr>
 
                     @endif

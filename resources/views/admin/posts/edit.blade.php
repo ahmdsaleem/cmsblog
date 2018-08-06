@@ -11,7 +11,7 @@
                 </li>
 
 
-                @endforeach
+            @endforeach
 
         </ul>
 
@@ -24,15 +24,15 @@
 
     <div class="panel">
         <div class="panel-heading">
-            <h2 class="text-center">Create a new Post</h2>
+            <h2 class="text-center">Editing Post {{ $post->title }}/h2>
         </div>
 
         <div class="panel-body">
-            <form action="{{ route('post.store') }}" method="post" enctype="multipart/form-data">
+            <form action="{{ route('post.update',['id' => $post->id]) }}" method="post" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <div class="form-group">
                     <label for="title">Title</label>
-                    <input type="text" name="title" class="form-control" required>
+                    <input type="text" name="title" value="{{ $post->title }}" class="form-control" required>
                 </div>
                 <div class="form-group">
                     <label for="featured">Featured Image</label>
@@ -49,11 +49,11 @@
                 </div>
                 <div class="form-group">
                     <label for="content">Content</label>
-                    <textarea name="content" id="summernote" cols="5" rows="10" class="form-control"></textarea>
+                    <textarea name="content" id="content" cols="5" rows="10" class="form-control"> {{ $post->content }}</textarea>
                 </div>
                 <div class="form-group">
                     <div class="text-center">
-                    <button type="submit" class="btn-lg btn-success">Submit</button>
+                        <button type="submit" class="btn-lg btn-success">Update Post</button>
                     </div>
                 </div>
 
@@ -63,4 +63,4 @@
 
     </div>
 
-    @endsection
+@endsection

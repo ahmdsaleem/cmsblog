@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}" >
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -85,6 +86,11 @@
                         <li class="list-group-item"><a href="{{ route('categories') }}">View all Categories</a></li>
                         <li class="list-group-item"><a href="{{ route('post.create') }}">Create a New Post</a></li>
                         <li class="list-group-item"><a href="{{ route('posts') }}">View all posts</a></li>
+                        <li class="list-group-item"><a href="{{ route('tag.create') }}">Create a new Tag</a></li>
+                        <li class="list-group-item"><a href="{{ route('tags') }}">View all tags</a></li>
+
+
+
                     </ul>
                 </div>
                 @endif
@@ -103,7 +109,19 @@
 
 
     <!-- Scripts -->
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/toastr.min.js') }}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('#summernote').summernote();
+        });
+    </script>
+
 </body>
 </html>

@@ -54,18 +54,39 @@ class PostsController extends Controller
 
     public function edit($id)
     {
-
+        $post=Post::find($id);
+        return view('admin.posts.edit')->with('post', $post)->with('categories',Category::all());
     }
 
 
     public function update(Request $request, $id)
     {
-        //
+        $post=Post::find($id);
+
+        if($request->hasFile('featured'))
+        {
+            $featured= $request->featured;
+            $path = $request->file('featured')->store('public/uploads/posts');
+            $featured_new_name=substr($path,6);
+        }
+
+        $post->title=$request->title;
+        $post->content= $request->content;
+        $post->featured=$featured_new_name;
+        $post->category_id=$request->category_id;
+
+        $post->save();
+
+        return redirect()->route('posts');
+
     }
 
 
     public function destroy($id)
     {
-        //
+        $post= Post::find($id);
+        $post->delete();
+
+        return redirect()->route('posts');
     }
 }
