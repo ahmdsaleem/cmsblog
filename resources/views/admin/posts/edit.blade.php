@@ -42,11 +42,33 @@
                     <label for="title">Select Categories</label>
                     <select class="form-control" name="category_id" id="category">
                         @foreach($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}"
+                                    @if($post->category_id == $category->id)
+                            selected
+                                    @endif
+                            >{{ $category->name }}
+                            </option>
 
                         @endforeach
                     </select>
                 </div>
+                <div class="form-group">
+                    <label for="tags">Select Tags</label>
+                    <br/>
+                    @foreach($tags as $tag)
+
+                        <label class="checkbox-inline"><input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+                            @foreach($post->tags as $t)
+
+                                @if($tag->id == $t->id)
+                                    checked
+                                    @endif
+                                @endforeach
+                            >{{ $tag->tag }}</label>
+
+                    @endforeach
+                </div>
+
                 <div class="form-group">
                     <label for="content">Content</label>
                     <textarea name="content" id="content" cols="5" rows="10" class="form-control"> {{ $post->content }}</textarea>

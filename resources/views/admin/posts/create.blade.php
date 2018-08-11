@@ -47,6 +47,18 @@
                         @endforeach
                     </select>
                 </div>
+
+                <div class="form-group">
+                    <label for="tags">Select Tags</label>
+                    <br/>
+                    @foreach($tags as $tag)
+
+                    <label class="checkbox-inline"><input type="checkbox" name="tags[]" value="{{ $tag->id }}">{{ $tag->tag }}</label>
+
+                    @endforeach
+                </div>
+
+
                 <div class="form-group">
                     <label for="content">Content</label>
                     <textarea name="content" id="summernote" cols="5" rows="10" class="form-control"></textarea>
