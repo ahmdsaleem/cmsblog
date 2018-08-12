@@ -86,6 +86,8 @@
                         <li class="list-group-item"><a href="{{ route('categories') }}">View all Categories</a></li>
                         <li class="list-group-item"><a href="{{ route('post.create') }}">Create a New Post</a></li>
                         <li class="list-group-item"><a href="{{ route('posts') }}">View all posts</a></li>
+                        <li class="list-group-item"><a href="{{ route('user.create') }}">Create a New User</a></li>
+                        <li class="list-group-item"><a href="{{ route('users') }}">View all users</a></li>
                         <li class="list-group-item"><a href="{{ route('tag.create') }}">Create a new Tag</a></li>
                         <li class="list-group-item"><a href="{{ route('tags') }}">View all tags</a></li>
 
