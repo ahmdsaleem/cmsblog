@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Profile;
+use App\Setting;
 use Illuminate\Http\Request;
 
-class UsersController extends Controller
+class SettingsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +18,9 @@ class UsersController extends Controller
         $this->middleware('admin');
     }
 
-
     public function index()
     {
-        return view('admin.users.index')->with('users',User::all());
+        return view('admin.settings.settings')->with('settings',Setting::first());
     }
 
     /**
@@ -32,7 +30,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('admin.users.create');
+        //
     }
 
     /**
@@ -43,20 +41,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-
-        $user=User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt('password')
-        ]);
-
-        Profile::create([
-            'user_id' => $user->id,
-            'avatar' => 'uploads/avatars/boy.png'
-        ]);
-
-
-        return redirect()->route('users');
+        //
     }
 
     /**
@@ -88,9 +73,20 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $settings= Setting::first();
+
+        $settings->site_name=$request->site_name;
+        $settings->address= $request->address;
+        $settings->contact_number=$request->contact_number;
+        $settings->contact_email=$request->contact_email;
+
+
+        $settings->save();
+
+        return redirect()->back();
+
     }
 
     /**
@@ -101,37 +97,6 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $user= User::find($id);
-
-        $user->profile->delete();
-        $user->delete();
-
-
-
-        return redirect()->route('users');
+        //
     }
-
-
-    public function admin($id)
-    {
-    $user = User::find($id);
-
-    $user->admin=1;
-    $user->save();
-
-    return redirect()->route('users');
-    }
-
-    public function not_admin($id)
-    {
-        $user = User::find($id);
-
-        $user->admin=0;
-        $user->save();
-
-        return redirect()->route('users');
-    }
-
-
-
 }

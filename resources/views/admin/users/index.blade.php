@@ -53,8 +53,9 @@
                         </td>
 
                         <td>
-                            {{--<a href="{{ route('user.edit', ['id' => $user->id ]) }}"><i class="fas fa-edit"></i> </a>--}}
+                           @if(\Illuminate\Support\Facades\Auth::id()!== $user->id)
                             <a href="{{ route('user.delete', ['id' => $user->id ]) }}"> <i class="fas fa-trash-alt text-danger"></i></a>
+                            @endif
                         </td>
 
                     </tr>
