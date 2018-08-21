@@ -11,9 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [
+    'uses' => 'FrontEndController@index',
+    'as' => 'index'
+]);
+
+
 
 Auth::routes();
 
@@ -21,6 +24,10 @@ Route::get('/test', function () {
     return App\Profile::find(1)->user->name;
 });
 
+Route::get('/post/{slug}',[
+   'uses' => 'FrontEndController@show',
+    'as'=> 'post.show'
+]);
 
 
 Route::group(['prefix'=>'admin','middleware'=>'auth'],function (){
