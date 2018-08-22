@@ -6,6 +6,7 @@ use App\Category;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PostsController extends Controller
 {
@@ -29,19 +30,30 @@ class PostsController extends Controller
 //        dd($request->all());
         $this->validate($request,[
             'title' => 'required|max:1000',
-            'featured' => 'required|image',
+            'featured' => 'image',
             'content' => 'required',
             'category_id'=> 'required'
         ]);
-        $featured= $request->featured;
-        $path = $request->file('featured')->store('public/uploads/posts');
-        $featured_new_name=substr($path,6);
+
+
+        if($request->hasFile('featured'))
+        {
+            $featured= $request->featured;
+            $path = $request->file('featured')->store('public/uploads/posts');
+            $featured_new_name=substr($path,6);
+        }
+        else
+        {
+            $featured_new_name='/uploads/posts/ca5a9TtulnusJGFDKITj5uj0wAAiVZrWlU7JZTx9.jpeg';
+        }
+
         $post=Post::create([
             'title' => $request->title,
             'content' => $request->content,
             'featured' => $featured_new_name,
             'category_id' => $request->category_id,
-            'slug' => str_slug($request->title)
+            'slug' => str_slug($request->title),
+            'user_id' => Auth::user()->id
         ]);
 
        $post->tags()->attach($request->tags);
@@ -72,11 +84,12 @@ class PostsController extends Controller
             $featured= $request->featured;
             $path = $request->file('featured')->store('public/uploads/posts');
             $featured_new_name=substr($path,6);
+            $post->featured=$featured_new_name;
+
         }
 
         $post->title=$request->title;
         $post->content= $request->content;
-        $post->featured=$featured_new_name;
         $post->category_id=$request->category_id;
 
         $post->save();
